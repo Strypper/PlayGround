@@ -1,0 +1,26 @@
+﻿<UserControl
+    x:Class="PlayGround.Elements.MyUserControl4"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PlayGround.Elements"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <ToggleButton
+        x:Name="Toggler" Checked="Toggler_Checked" Unchecked="Toggler_Unchecked"
+        PointerEntered="Toggler_PointerEntered" PointerExited="Toggler_PointerExited"
+        VerticalAlignment="Center" HorizontalAlignment="Center"
+        Height="50" Width="50" CornerRadius="100"
+        Content="&#xE710;" FontFamily="Segoe MDL2 Assets"
+        FontSize="30" CenterPoint="25, 25, 0" Scale="1.0, 1.0, 1.0">
+        <ToggleButton.RotationTransition>
+            <ScalarTransition/>
+        </ToggleButton.RotationTransition>
+        <ToggleButton.ScaleTransition>
+            <Vector3Transition/>
+        </ToggleButton.ScaleTransition>
+    </ToggleButton>
+</UserControl>

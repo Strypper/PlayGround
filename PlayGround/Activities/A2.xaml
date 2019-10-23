@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="PlayGround.Activities.A2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PlayGround.Activities"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local1="using:PlayGround.Elements"
+    xmlns:data="using:PlayGround.Models"
+    mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+    <Grid>
+        <Ellipse x:Name="EllipseTest"
+                 VerticalAlignment="Top" HorizontalAlignment="Left"
+                 Width="100" Height="100" Fill="Red"/>
+        <!--<MediaElement x:Name="Video" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                      Height="200" Width="400" Source="/Assets/IUTrailer.mp4" />-->
+
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Rectangle Fill="Red" />
+            <Rectangle Fill="Green" Grid.Column="1" />
+            <Rectangle Fill="Blue" Grid.Row="1" Grid.Column="1" />
+            <Rectangle Fill="Yellow" Grid.Row="1" />
+        </Grid>
+
+
+        <ListView x:Name="TestList" VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                  Width="500">
+
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:ListModelTest">
+                    <StackPanel Width="500">
+                        <ParallaxView Source="{Binding ElementName=TestList}" VerticalShift="500">
+                            <Image Width="400" Height="200" Stretch="Uniform"
+                               Source="{x:Bind ImgURL}"/>
+                        </ParallaxView>
+                        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                   Text="{x:Bind Title}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView x:Name="TestList1" VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                  ContainerContentChanging="TestList1_ContainerContentChanging"
+                  Width="500">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:ListModelTest">
+                    <RelativePanel Width="320" Height="240">
+                        <Canvas x:Name="MyPanel" 
+                                RelativePanel.AlignLeftWithPanel="True"
+                                RelativePanel.AlignTopWithPanel="True"
+                                Width="320" 
+                                Height="240">
+                            <Canvas.Clip>
+                                <RectangleGeometry Rect="0, 25, 360, 185" />
+                            </Canvas.Clip>
+                            <Image Source="{x:Bind ImgURL}"
+                                   Width="450"
+                                   Height="450"
+                                   Stretch="UniformToFill"/>
+                        </Canvas>
+                        <TextBlock RelativePanel.AlignBottomWithPanel="True"
+                                   RelativePanel.AlignRightWithPanel="True"
+                                   Text="{x:Bind Title}"
+                                   Style="{ThemeResource TitleTextBlockStyle}"
+                                   Foreground="Black">
+                        </TextBlock>
+                    </RelativePanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button x:Name="TestButotn" Content="Hover Me" Click="TestButotn_Click"
+                Width="100" Height="50" CenterPoint="50, 25, 0"
+                PointerEntered="TestButotn_PointerEntered" Background="BlueViolet"
+                PointerExited="TestButotn_PointerExited"/>
+    </Grid>
+</Page>

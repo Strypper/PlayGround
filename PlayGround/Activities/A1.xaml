@@ -1,0 +1,91 @@
+﻿<Page
+    x:Class="PlayGround.Activities.A1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PlayGround.Elements"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    xmlns:lottieUwp="using:LottieUWP"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Storyboard x:Name="myStoryboard">
+            <DoubleAnimation
+        EnableDependentAnimation="True"
+        Storyboard.TargetName="Line"
+        Storyboard.TargetProperty="X2"
+        From="0.0" To="250.0" Duration="0:0:1"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="Panel" Height="450" Background="LightGreen" Orientation="Horizontal">
+            <Image x:Name="Cortana" Source="../Assets/TestPics/Cortana.jpg" VerticalAlignment="Top" Height="100" Width="100" HorizontalAlignment="Left"/>
+            <StackPanel>
+                <TextBox x:Name="Value" Margin="5" Background="LightCoral" Windows10version1809:CornerRadius="5"/>
+                <TextBlock x:Name="User" Margin="5" Text="Hello Strypper" FontSize="30" FontStyle="Oblique" HorizontalAlignment="Center" Foreground="LightBlue"/>
+                <Button x:Name="Back" Margin="5" Width="200" Height="50" Background="BurlyWood" Content="Back" Click="Back_Click" Windows10version1809:CornerRadius="5"/>
+                <Button x:Name="Test" Margin="5" Width="200" Height="50" Background="SaddleBrown" Content="Test" Click="Test_Click" Windows10version1809:CornerRadius="5"/>
+                <Rectangle x:Name="rectangle" CenterPoint="25, 25, 0" Fill="Red" Margin="5" Width="50" Height="50" Windows10version1809:Rotation="0" >
+                    <Windows10version1809:Rectangle.RotationTransition>
+                        <ScalarTransition />
+                    </Windows10version1809:Rectangle.RotationTransition>
+                </Rectangle>
+                <Rectangle x:Name="rectangle2" Fill="LightGray" Margin="5" Width="50" Height="50" Windows10version1809:Translation="0, 0, 0" >
+                    <Windows10version1809:Rectangle.TranslationTransition>
+                        <Vector3Transition />
+                    </Windows10version1809:Rectangle.TranslationTransition>
+                </Rectangle>
+                <Grid x:Name="TestingGrid" Background="LightGoldenrodYellow" Width="100" Height="100" Margin="5">
+                    <Windows10version1809:Grid.BackgroundTransition>
+                        <BrushTransition/>
+                    </Windows10version1809:Grid.BackgroundTransition>
+                </Grid>
+            </StackPanel>
+            <Grid Margin="5">
+                <Button x:Name="Reverse" Content="Reverse" Click="Reverse_Click" VerticalAlignment="Top" HorizontalAlignment="Center" Width="100" Height="50" Margin="5" Background="Azure" Windows10version1809:CornerRadius="5"/>
+                <TextBlock Text="This is the crossline demo" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" FontSize="20" FontFamily="Verdana"/>
+                <Line x:Name="Line" X1="0" X2="0" Y1="5" Y2="5" VerticalAlignment="Center" HorizontalAlignment="Center" Stroke="Yellow" Margin="5" StrokeThickness="5"/>
+            </Grid>
+            <local:MyUserControl1 Margin="5"></local:MyUserControl1>
+            <!--<local:MyUserControl2></local:MyUserControl2>-->
+            <lottieUwp:LottieAnimationView
+                    FileName="Assets/lf20_XLUWzz.json"
+                    AutoPlay="True" Margin="5"
+                    RepeatCount="-1" Width="200" Height="200"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+            <lottieUwp:LottieAnimationView
+                    FileName="Assets/Eyeinfo.json"
+                    AutoPlay="True" Margin="5"
+                    RepeatCount="-1" Width="600" Height="600"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel x:Name="Canvas" Grid.Row="1" Opacity="0" Background="BlueViolet">
+            <Rectangle x:Name="rectangle1" Canvas.Left="400" Canvas.Top="200" Fill="LightGreen" Margin="5" Width="50" Height="50" Windows10version1809:Rotation="0" >
+                <Windows10version1809:Rectangle.RotationTransition>
+                    <ScalarTransition/>
+                </Windows10version1809:Rectangle.RotationTransition>
+            </Rectangle>
+            <Button x:Name="HoverEffect" Width="200" Height="50" Background="{ThemeResource SystemControlAcrylicElementBrush}"
+                    PointerEntered="HoverEffect_PointerEntered" PointerExited="HoverEffect_PointerExited" Click="HoverEffect_Click"
+                    Margin="5" CornerRadius="5">
+                Hover Me
+            </Button>
+            <local:MyUserControl3 x:Name="WaveProgressControl"
+                                  Width="160" Height="160"></local:MyUserControl3>
+            <local:MyUserControl6></local:MyUserControl6>
+            <Slider Grid.Row="1"
+		        Margin="24"
+				Value="{x:Bind WaveProgressControl.Percent, Mode=TwoWay}" />
+
+        </StackPanel>
+        
+    </Grid>
+</Page>

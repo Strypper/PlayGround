@@ -1,0 +1,44 @@
+﻿<UserControl
+    x:Class="PlayGround.Elements.MyUserControl2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PlayGround.Elements"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Border PointerEntered="Border_PointerEntered" PointerExited="Border_PointerExited"
+            Width="400" Height="200" CornerRadius="5">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="400" Height="200">
+            <Image x:Name="CoverImage" Source="../Assets/VectorImage2.jpg" Width="400" Height="200" Stretch="UniformToFill"></Image>
+
+            <TextBlock x:Name="Title" FontSize="100" Foreground="Yellow"
+                       VerticalAlignment="Top" HorizontalAlignment="Left"
+                       Margin="5" Scale="1,1,0">
+                <TextBlock.ScaleTransition>
+                    <Vector3Transition Duration="0:0:1"/>
+                </TextBlock.ScaleTransition>
+                Title
+            </TextBlock>
+            <TextBlock x:Name="Description" FontSize="24.65" Width="380" Height="150" Margin="5"
+                       VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                       Foreground="#f19322" TextAlignment="Right" 
+                       TextWrapping="Wrap" Translation="0,150,0">
+                    <TextBlock.TranslationTransition>
+                    <Vector3Transition Duration="0:0:1" />
+                    </TextBlock.TranslationTransition>
+
+                        This is a test writting
+                        for animation, How does it look ?, I would like to right more
+                        of this see what happen lul this is not good
+            </TextBlock>
+            <interactivity:Interaction.Behaviors>
+                <behaviors:Blur x:Name="BlurBehavior" EasingType="Linear" EasingMode="EaseOut"/>
+            </interactivity:Interaction.Behaviors>
+        </Grid>
+    </Border>
+</UserControl>

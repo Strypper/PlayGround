@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="PlayGround.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PlayGround"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <RelativePanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel x:Name="Form"
+                        Background="{ThemeResource SystemControlAcrylicElementBrush}"
+                        Margin="5" Windows10version1809:CornerRadius="15">
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition IsStaggeringEnabled="True"
+                                                 FromVerticalOffset="150"
+                                                 FromHorizontalOffset="150"/>
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
+                
+                <TextBlock x:Name="UserIDTextBlock" Text="User ID" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="UserID" Width="300" HorizontalAlignment="Center" Margin="5" Windows10version1809:CornerRadius="5"/>
+                <TextBlock x:Name="PassWordTextBlock" Text="Password" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="Password" Width="300" HorizontalAlignment="Center" Margin="5" Windows10version1809:CornerRadius="5"/>
+                <TextBlock x:Name="ConfirmTextBlock" Text="ConfirmPassword" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="ConfirmPassword" Width="300" HorizontalAlignment="Center" Margin="5" Windows10version1809:CornerRadius="5"/>
+                <TextBlock x:Name="AgeTextBlock" Text="Password" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="Age" Width="300" HorizontalAlignment="Center" Margin="5" Windows10version1809:CornerRadius="5"/>
+                <TextBlock x:Name="EmailTextBlock" Text="Email" HorizontalAlignment="Center" Margin="5"/>
+                <TextBox x:Name="Email" Width="300" HorizontalAlignment="Center" Margin="5" Windows10version1809:CornerRadius="5"/>
+                <TextBlock x:Name="DateOfBirth" Text="Date Of Birth" HorizontalAlignment="Center" Margin="5"/>
+                <Windows10version1809:CalendarDatePicker Width="300" HorizontalAlignment="Center" Margin="5" CornerRadius="5"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="Register" Content="Register"
+                            VerticalAlignment="Center" Grid.Column="0" Margin="5,20,5,5"
+                            HorizontalAlignment="Center" Width="100" Height="50"
+                            Click="RegisterPressed" Windows10version1809:CornerRadius="5"/>
+                    <Button x:Name="Login" Content="Login"
+                            PointerEntered="Login_PointerEntered" PointerExited="Login_PointerExited"
+                            VerticalAlignment="Center" Grid.Column="1" Margin="5,20,5,5"
+                            HorizontalAlignment="Center" Width="100" Height="50"
+                            Click="LoginPressed" Windows10version1809:CornerRadius="5"/>
+                </Grid>
+            </StackPanel>
+            <Image x:Name="Cortana"
+               RelativePanel.AlignHorizontalCenterWith="Form"
+               Margin="0,-80,0,0"
+               Source="Assets/TestPics/Cortana.jpg" Width="100" Height="100"/>
+        </RelativePanel>
+    </Grid>
+</Page>

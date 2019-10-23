@@ -1,0 +1,76 @@
+﻿<UserControl
+    x:Class="PlayGround.Elements.MyUserControl6"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PlayGround.Elements"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="1400">
+
+    <Pivot Title="EMAIL">
+        <Pivot.RightHeader>
+            <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right">
+                    <AppBarButton Icon="Add" Label="Add"/>
+                    <AppBarButton Icon="ReShare" Label="Share"/>
+                    <AppBarButton Icon="Edit" Label="Edit"/>
+                    <CommandBar.SecondaryCommands>
+                        <AppBarButton Icon="Setting" Label="Settings"/>
+                    </CommandBar.SecondaryCommands>
+                </CommandBar>
+        </Pivot.RightHeader>
+        <PivotItem>
+            <PivotItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE783;" FontFamily="Segoe MDL2 Assets" 
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Text="About"
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </PivotItem.Header>
+            <TextBlock Text="all emails go here." />
+        </PivotItem>
+        <PivotItem>
+            <PivotItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE7C1;" FontFamily="Segoe MDL2 Assets" 
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Text="IU-Clubs"
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </PivotItem.Header>
+            <TextBlock Text="unread emails go here." />
+        </PivotItem>
+        <PivotItem>
+            <PivotItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE8A1;" FontFamily="Segoe MDL2 Assets" 
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Text="News"
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </PivotItem.Header>
+        </PivotItem>
+        <PivotItem>
+            <PivotItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE9CE;" FontFamily="Segoe MDL2 Assets" 
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Text="Q &amp; A"
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </PivotItem.Header>
+        </PivotItem>
+        <PivotItem>
+            <PivotItem.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE716;" FontFamily="Segoe MDL2 Assets" 
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Text="Teachers"
+                               Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </PivotItem.Header>
+        </PivotItem>
+    </Pivot>
+</UserControl>
