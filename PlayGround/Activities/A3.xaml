@@ -72,15 +72,13 @@
             </GridView.Header>
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="data:ListModelTest">
-                    <Grid>
-                        <Image Source="{x:Bind ImgURL}"
+                    <Image Source="{x:Bind ImgURL}"
                         Width="385"
                         Height="300"
                         Margin="10"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"    
                         Stretch="UniformToFill"/>
-                    </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </controls:AdaptiveGridView>

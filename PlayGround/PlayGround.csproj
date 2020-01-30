@@ -131,6 +131,9 @@
     <Compile Include="Activities\A5.xaml.cs">
       <DependentUpon>A5.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Activities\A6.xaml.cs">
+      <DependentUpon>A6.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Animations\ImplicitAnimation.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -153,10 +156,12 @@
     <Compile Include="Elements\MyUserControl6.xaml.cs">
       <DependentUpon>MyUserControl6.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\InteractionBehaviors.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\ListModelTest.cs" />
+    <Compile Include="Models\PhotoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +246,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Activities\A6.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Elements\MyUserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -297,9 +306,7 @@
       <Version>2.3.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

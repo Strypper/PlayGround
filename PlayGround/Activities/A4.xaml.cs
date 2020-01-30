@@ -26,107 +26,125 @@ namespace PlayGround.Activities
     /// </summary>
     public sealed partial class A4 : Page
     {
-        private CompositionEffectBrush brush;
-        private Compositor compositor;
-
-
-        Compositor _compositor = Window.Current.Compositor;
-        SpringVector3NaturalMotionAnimation _springAnimation;
-
+        private Compositor compositor = Window.Current.Compositor;
+        private SpriteVisual effectVisual;
+        private CompositionEffectBrush effectBrush, effectBrushStraighten;
+        private CompositionEffectFactory effectFactory, effectFactoryStraighten;
+        private SpringScalarNaturalMotionAnimation _springAnimation;
+        private LoadedImageSurface _LoadImageSurface;
         public A4()
         {
             this.InitializeComponent();
 
+        }
 
-            MainGrid.SizeChanged += OnMainGridSizeChanged;
-
-            compositor = ElementCompositionPreview.GetElementVisual(MainGrid).Compositor;
-
-            // we create the effect. 
-            // Notice the Source parameter definition. Here we tell the effect that the source will come from another element/object
-            var blurEffect = new GaussianBlurEffect
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Create Visual to contain effect
+            effectVisual = compositor.CreateSpriteVisual();
+            var destinationBrush = compositor.CreateBackdropBrush();
+            //Create the Effect you want
+            var graphicsEffect = new GaussianBlurEffect
             {
                 Name = "Blur",
-                Source = new CompositionEffectSourceParameter("background"),
-                BlurAmount = 100f,
+                BlurAmount = 0f,
                 BorderMode = EffectBorderMode.Hard,
+                Source = new CompositionEffectSourceParameter("Background")
             };
 
-            // we convert the effect to a brush that can be used to paint the visual layer
-            var blurEffectFactory = compositor.CreateEffectFactory(blurEffect, new[] { "Blur.BlurAmount" });
-            brush = blurEffectFactory.CreateBrush();
 
-            // We create a special brush to get the image output of the previous layer.
-            // we are basically chaining the layers (xaml grid definition -> rendered bitmap of the grid -> blur effect -> screen)
-            var destinationBrush = compositor.CreateBackdropBrush();
-            brush.SetSourceParameter("background", destinationBrush);
 
-            // we create the visual sprite that will hold our generated bitmap (the blurred grid)
-            // Visual Sprite are "raw" elements so there is no automatic layouting. You have to specify the size yourself
-            var blurSprite = compositor.CreateSpriteVisual();
-            blurSprite.Size = new Vector2((float)MainGrid.ActualWidth, (float)MainGrid.ActualHeight);
-            blurSprite.Brush = brush;
+            effectFactory = compositor.CreateEffectFactory(graphicsEffect, new[] { "Blur.BlurAmount" });
+            effectBrush = effectFactory.CreateBrush();
+            effectBrush.SetSourceParameter("Background", destinationBrush);
 
-            // we add our sprite to the rendering pipeline
-            ElementCompositionPreview.SetElementChildVisual(MainGrid, blurSprite);
+            effectVisual.Brush = effectBrush;
+            //By the default the Visual have the size width and height (defined in Vector 2) 0 and 0
+            ResizeVisual();
 
-            //Animated
+            ElementCompositionPreview.SetElementChildVisual(Back, effectVisual);
+
+            //Create Spring Animation for nature increase and decrease value
+            _springAnimation = compositor.CreateSpringScalarAnimation();
+            _springAnimation.Period = TimeSpan.FromSeconds(0.5);
+            _springAnimation.DampingRatio = 0.75f;
 
         }
 
-        private void OnMainGridSizeChanged(object sender, SizeChangedEventArgs e)
+        private void ResizeVisual()
         {
-            SpriteVisual blurVisual = (SpriteVisual)ElementCompositionPreview.GetElementChildVisual(MainGrid);
-
-            if (blurVisual != null)
-            {
-                blurVisual.Size = e.NewSize.ToVector2();
-            }
-
-            System.Diagnostics.Debug.WriteLine("Changed");
+            if (effectVisual == null) return;
+            effectVisual.Size = new Vector2((float)Back.ActualWidth, (float)Back.ActualHeight);
         }
-
-        private void Button_PointerEntered(object sender, PointerRoutedEventArgs e)
+        private void BlurAmount_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            // Scale up to 1.5
-            CreateOrUpdateSpringAnimation(1.5f);
-
-            (sender as UIElement).StartAnimation(_springAnimation);
-
-            var blurAnimation = compositor.CreateScalarKeyFrameAnimation();
-            blurAnimation.InsertKeyFrame(0.0f, 100.0f);
-            blurAnimation.InsertKeyFrame(0.5f, 0.0f);
-            blurAnimation.Duration = TimeSpan.FromSeconds(3);
-            //blurAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
-            brush.StartAnimation("Blur.BlurAmount", blurAnimation);
-        }
-
-        private void Button_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            // Scale back down to 1.0
-            CreateOrUpdateSpringAnimation(1.0f);
-
-            (sender as UIElement).StartAnimation(_springAnimation);
+            var blur_amount = (float)e.NewValue;
+            effectBrush.Properties.InsertScalar("Blur.BlurAmount", blur_amount);
+            effectVisual.Brush = effectBrush;
         }
 
 
-
-
-
-        private void CreateOrUpdateSpringAnimation(float finalValue)
+        private void BlurTheImage_Click(object sender, RoutedEventArgs e)
         {
-            if (_springAnimation == null)
-            {
-                _springAnimation = _compositor.CreateSpringVector3Animation();
-                _springAnimation.Target = "Scale";
-            }
+            //ScalarKeyFrameAnimation blurAnimation = compositor.CreateScalarKeyFrameAnimation();
+            //blurAnimation.InsertKeyFrame(0.0f, 0.0f);
+            //blurAnimation.InsertKeyFrame(1.0f, 100.0f);
+            //blurAnimation.Duration = TimeSpan.FromSeconds(4);
+            ////blurAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
 
-            _springAnimation.FinalValue = new Vector3(finalValue);
+
+
+            //effectBrush.StartAnimation("Blur.BlurAmount", blurAnimation);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ToA5_Click(object sender, RoutedEventArgs e)
         {
+            //ScalarKeyFrameAnimation blurAnimation = compositor.CreateScalarKeyFrameAnimation();
+            //blurAnimation.InsertKeyFrame(0.0f, 100.0f);
+            //blurAnimation.InsertKeyFrame(1.0f, 0.0f);
+            //blurAnimation.Duration = TimeSpan.FromSeconds(4);
+            ////blurAnimation.IterationBehavior = AnimationIterationBehavior.Forever;
+
+            //effectBrush.StartAnimation("Blur.BlurAmount", blurAnimation);
             Frame.Navigate(typeof(A5));
+
+        }
+
+        private void BlurTheImage_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            _springAnimation.FinalValue = 100f;
+            effectBrush.StartAnimation("Blur.BlurAmount", _springAnimation);
+        }
+
+        private void BlurTheImage_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            _springAnimation.FinalValue = 0f;
+            effectBrush.StartAnimation("Blur.BlurAmount", _springAnimation);
+        }
+
+        public void ApplyCompositor()
+        {
+            var container = compositor.CreateContainerVisual();
+            container.RotationAngle = 45;
+
+            ElementCompositionPreview.SetElementChildVisual(theGrid, container);
+
+
+            _LoadImageSurface = LoadedImageSurface.StartLoadFromUri(new Uri("ms-appx:///Assets/21.png"));
+            _LoadImageSurface.LoadCompleted += (sender, args) =>
+            {
+                if (args.Status == LoadedImageSourceLoadStatus.Success)
+                {
+                    var brush = compositor.CreateSurfaceBrush(_LoadImageSurface);
+                    brush.Stretch = CompositionStretch.Uniform;
+                    var imageVisual = compositor.CreateSpriteVisual();
+                    imageVisual.Size = new Vector2(300, 300);
+                    imageVisual.Brush = brush;
+                    //imageVisual.RotationAngle = 45;
+                    container.Children.InsertAtTop(imageVisual);
+                };
+            };
+            //container.Compositor.CreateAmbientLight();
         }
     }
 }

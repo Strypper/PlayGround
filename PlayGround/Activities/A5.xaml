@@ -5,73 +5,59 @@
     xmlns:local="using:PlayGround.Activities"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:UserControl="using:PlayGround.Elements"
-    mc:Ignorable="d"
+    xmlns:UserControl="using:PlayGround.Elements" 
+    xmlns:models="using:PlayGround.Models" 
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity" xmlns:local1="using:PlayGround.Helpers"
+    mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <GridView>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-        <GridViewItem>
-            <UserControl:MyUserControl2/>
-        </GridViewItem>
-    </GridView>
+    <StackPanel>
+
+
+        <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Auto" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="Items">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:PhotoModel">
+                        <Grid Margin="50">
+                            <Canvas x:Name ="InfoCanvas" Width="300" Height="200" >
+                                <Grid x:Name="Info" Width="300" Height="200" Background="White">
+                                    <StackPanel VerticalAlignment="Bottom">
+                                        <TextBlock Text="{x:Bind Info}" FontSize="24" TextWrapping="Wrap" FontWeight="Light" Margin="4,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Canvas>
+                            <Grid x:Name="Image" Width="300" Height="200">
+                                <!--Insert Canvas control to workaround XAML-COMP interop with property sharing-->
+                                <Canvas>
+                                    <Grid x:Name="Photo" Width="300" Height="200">
+                                        <Image Width="300" Height="200" Stretch="UniformToFill">
+                                            <Image.Source>
+                                                <BitmapImage UriSource ="{x:Bind Image}"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <TextBlock x:Name="NameText" Text="{x:Bind Name}" VerticalAlignment="Top" FontSize="30" Foreground="White" Margin="4,0,0,0"/>
+                                    </Grid>
+                                </Canvas>
+                            </Grid>
+                            <interactivity:Interaction.Behaviors>
+                                <local1:InteractionBehaviors HittestContent="{Binding ElementName=Image}" InfoContent="{Binding ElementName=Info}" PhotoContent="{Binding ElementName=Photo}" InfoContainer ="{Binding ElementName=InfoCanvas}" />
+                            </interactivity:Interaction.Behaviors>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+
+
+        <Grid x:Name="root" Background="LightGray" SizeChanged="Root_SizeChanged">
+            <Image x:Name="tiltImage" Source="ms-appx:///Assets/21.png" Width="300" Height="200" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Rectangle x:Name="HitTestRect" Fill="Transparent" Width="300" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Grid>
+    </StackPanel>
 </Page>
