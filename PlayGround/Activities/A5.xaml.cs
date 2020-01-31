@@ -42,6 +42,8 @@ namespace PlayGround.Activities
             list.Add(new PhotoModel() { Name = "Hello", Info = "Description", Image = new Uri("ms-appx:///Assets/TestPics/Idea 10.png") });
             list.Add(new PhotoModel() { Name = "Hello", Info = "Description", Image = new Uri("ms-appx:///Assets/TestPics/Idea 25.png") });
             Items.ItemsSource = list;
+            Items1.ItemsSource = list;
+
 
             _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
             _container = _compositor.CreateContainerVisual();

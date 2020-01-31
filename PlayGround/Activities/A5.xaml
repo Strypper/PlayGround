@@ -10,6 +10,20 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity" xmlns:local1="using:PlayGround.Helpers"
     mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style TargetType="GridViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <ContentPresenter ContentTransitions="{TemplateBinding ContentTransitions}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <StackPanel>
 
@@ -55,9 +69,41 @@
 
 
 
-        <Grid x:Name="root" Background="LightGray" SizeChanged="Root_SizeChanged">
-            <Image x:Name="tiltImage" Source="ms-appx:///Assets/21.png" Width="300" Height="200" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Grid x:Name="root" Width="300" Height="200" Background="LightGray" SizeChanged="Root_SizeChanged">
+            <Image x:Name="tiltImage" Source="ms-appx:///Assets/TestPics/Idea 21.png" Width="300" Height="200" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Rectangle x:Name="HitTestRect" Fill="Transparent" Width="300" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
+        <GridView x:Name="Items1" Padding="0,50,0,0" Background="Chocolate" Width="1600" HorizontalAlignment="Left">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:PhotoModel">
+                    <Grid Margin="80,150,120,10">
+                        <Canvas x:Name ="InfoCanvas" Width="300" Height="200" >
+                            <Grid x:Name="Info" Width="400" Height="200" Background="White">
+                                <Grid VerticalAlignment="Bottom">
+                                    <TextBlock Text="{x:Bind Info}" FontSize="24" TextWrapping="Wrap" FontWeight="Light" Margin="4,0"/>
+                                </Grid>
+                                <Button VerticalAlignment="Top" Background="Green" HorizontalAlignment="Right" Width="40" Height="100"/>
+                                <Button VerticalAlignment="Bottom" Background="Red" HorizontalAlignment="Right" Width="40" Height="100"/>
+                            </Grid>
+                        </Canvas>
+                        <Grid x:Name="Image" Width="300" Height="200">
+                            <Canvas>
+                                <Grid x:Name="Photo" Width="300" Height="200">
+                                    <Image Width="300" Height="200" Stretch="UniformToFill">
+                                        <Image.Source>
+                                            <BitmapImage UriSource ="{x:Bind Image}"/>
+                                        </Image.Source>
+                                    </Image>
+                                    <TextBlock x:Name="NameText" Text="{x:Bind Name}" VerticalAlignment="Top" FontSize="30" Foreground="White" Margin="4,0,0,0"/>
+                                </Grid>
+                            </Canvas>
+                        </Grid>
+                        <interactivity:Interaction.Behaviors>
+                            <local1:InteractionBehaviors HittestContent="{Binding ElementName=Image}" InfoContent="{Binding ElementName=Info}" PhotoContent="{Binding ElementName=Photo}" InfoContainer ="{Binding ElementName=InfoCanvas}" />
+                        </interactivity:Interaction.Behaviors>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </StackPanel>
 </Page>
